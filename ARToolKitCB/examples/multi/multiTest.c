@@ -34,6 +34,7 @@ ARParam         cparam;
 
 char                *config_name = "Data/multi/marker.dat";
 ARMultiMarkerInfoT  *config;
+ARMultiMarkerInfoT  ref;
 
 static void   init(void);
 static void   cleanup(void);
@@ -41,6 +42,9 @@ static void   keyEvent( unsigned char key, int x, int y);
 static void   mainLoop(void);
 static void   draw( double trans1[3][4], double trans2[3][4], int mode );
 
+float gx;
+float gy;
+int objectStyle = 0;
 
 int main(int argc, char **argv)
 {
@@ -52,10 +56,10 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-static void   keyEvent( unsigned char key, int x, int y)
+static void keyEvent( unsigned char key, int x, int y)
 {
     /* quit if the ESC key is pressed */
-    if( key == 0x1b ) {
+    if( key == 0x1c ) {
         printf("*** %f (frame/sec)\n", (double)count/arUtilTimer());
         cleanup();
         exit(0);
@@ -70,7 +74,7 @@ static void   keyEvent( unsigned char key, int x, int y)
     }
 
     /* turn on and off the debug mode with right mouse */
-    if( key == 'd' ) {
+    if( key == 'q' ) {
         printf("*** %f (frame/sec)\n", (double)count/arUtilTimer());
         arDebug = 1 - arDebug;
         if( arDebug == 0 ) {
@@ -81,6 +85,49 @@ static void   keyEvent( unsigned char key, int x, int y)
             argSwapBuffers();
         }
         count = 0;
+    }
+
+    /* turn on and off the debug mode with right mouse */
+    if( key == 'e' ) {
+        printf("*** %f (frame/sec)\n", (double)count/arUtilTimer());
+        arDebug = 1 - arDebug;
+        if( arDebug == 0 ) {
+            glClearColor( 0.0, 0.0, 0.0, 0.0 );
+            glClear(GL_COLOR_BUFFER_BIT);
+            argSwapBuffers();
+            glClear(GL_COLOR_BUFFER_BIT);
+            argSwapBuffers();
+        }
+        count = 0;
+    }
+
+    if( key == 'n' ) {
+        //argSwapBuffers();
+        //glTranslatef( gx, gy, 25.0 );
+        //glutSolidCube(50.0);
+
+    }
+
+    //UPKEY
+    if( key == 'w' ) {
+        //gx += 2;
+        gy += 2;
+        glTranslatef( 0.0, gy, 25.0 );
+    }
+    //LEFTKEY
+    if( key == 'a' ) {
+        gx -= 2;
+        glTranslatef( gx, 0.0, 25.0 );
+    }
+    //DOWNKEY
+    if( key == 's' ) {
+        gy -= 2;
+        glTranslatef( 0.0, gy, 25.0 );
+    }
+    //RIGHTKEY
+    if( key == 'd' ) {
+         gx += 2;
+        glTranslatef( gx, 0.0, 25.0 );
     }
 
 }
@@ -133,7 +180,7 @@ static void mainLoop(void)
         argSwapBuffers();
         return;
     }
-    printf("err = %f\n", err);
+    //printf("err = %f\n", err);
     if(err > 100.0 ) {
         argSwapBuffers();
         return;
@@ -150,8 +197,12 @@ static void mainLoop(void)
     glClearDepth( 1.0 );
     glClear(GL_DEPTH_BUFFER_BIT);
     for( i = 0; i < config->marker_num; i++ ) {
-        if( config->marker[i].visible >= 0 ) draw( config->trans, config->marker[i].trans, 0 );
-        else                                 draw( config->trans, config->marker[i].trans, 1 );
+        if( config->marker[i].visible >= 0 ){
+          draw( config->trans, config->marker[i].trans, 0 );
+        }
+        else{
+          draw( config->trans, config->marker[i].trans, 1 );
+        }
     }
     argSwapBuffers();
 }
@@ -243,7 +294,7 @@ static void draw( double trans1[3][4], double trans2[3][4], int mode )
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient1);
     }
     glMatrixMode(GL_MODELVIEW);
-    glTranslatef( 0.0, 0.0, 25.0 );
+    glTranslatef( gx, gy, 25.0 );
     if( !arDebug ) glutSolidCube(50.0);
      else          glutWireCube(50.0);
     glDisable( GL_LIGHTING );
