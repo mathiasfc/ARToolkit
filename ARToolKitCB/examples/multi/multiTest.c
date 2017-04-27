@@ -36,6 +36,10 @@ char                *config_name = "Data/multi/marker.dat";
 ARMultiMarkerInfoT  *config;
 ARMultiMarkerInfoT  ref;
 
+
+ARMultiEachMarkerInfoT marcadorReferencia;
+ARMultiEachMarkerInfoT marcadoresVisiveis[10];
+
 static void   init(void);
 static void   cleanup(void);
 static void   keyEvent( unsigned char key, int x, int y);
@@ -102,10 +106,11 @@ static void keyEvent( unsigned char key, int x, int y)
     }
 
     if( key == 'n' ) {
-        //argSwapBuffers();
-        //glTranslatef( gx, gy, 25.0 );
-        //glutSolidCube(50.0);
+        //NEW OBJECT
+    }
 
+    if( key == 'p' ) {
+        RepositionObject();
     }
 
     //UPKEY
@@ -198,12 +203,16 @@ static void mainLoop(void)
     glClear(GL_DEPTH_BUFFER_BIT);
     for( i = 0; i < config->marker_num; i++ ) {
         if( config->marker[i].visible >= 0 ){
-          draw( config->trans, config->marker[i].trans, 0 );
+                marcadorReferencia = config->marker[i];
+          //draw( config->trans, config->marker[i].trans, 0 );
         }
         else{
-          draw( config->trans, config->marker[i].trans, 1 );
+          //draw( config->trans, config->marker[i].trans, 1 );
         }
     }
+
+    drawObjectsWithMarker(marcadorReferencia);
+
     argSwapBuffers();
 }
 
@@ -301,3 +310,83 @@ static void draw( double trans1[3][4], double trans2[3][4], int mode )
 
     glDisable( GL_DEPTH_TEST );
 }
+
+/* Desenha os objetos de acordo com o marcador de referencia */
+void drawObjectsWithMarker(ARMultiEachMarkerInfoT marcador)
+{
+    //double position3d(*)[3] = marcador.pos3d;
+
+    //A
+    if(marcador.patt_id == 0){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    //B
+    }else if(marcador.patt_id == 1){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    //C
+    }else if(marcador.patt_id == 2){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    //D
+    }else if(marcador.patt_id == 3){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    //G
+    }else if(marcador.patt_id == 4){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    //F
+    }else if(marcador.patt_id == 5){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    //HIRO
+    }else if(marcador.patt_id == 6){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    //KANJi
+    }else if(marcador.patt_id == 7){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    }else if(marcador.patt_id == 8){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    }else if(marcador.patt_id == 9){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    }else if(marcador.patt_id == 10){
+        printf("%d", marcador.patt_id);
+        draw( config->trans, marcador.trans, 0 );
+    }
+}
+
+void RepositionObject(){
+    int contaElementosValidos = 0;
+    int i;
+    memset(marcadoresVisiveis, 0, sizeof marcadoresVisiveis);
+    for (i = 0; i < config->marker_num; i++) {
+        if( config->marker[i].visible >= 0 ){
+            marcadoresVisiveis[i] = config->marker[i];
+            contaElementosValidos++;
+        }
+    }
+
+    printf("%d",contaElementosValidos);
+    //faz o que precisa com contaElementosValidos
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
