@@ -38,6 +38,7 @@ ARMultiMarkerInfoT  ref;
 
 
 ARMultiEachMarkerInfoT marcadorReferencia;
+ARMultiEachMarkerInfoT marcadorParaReposicionar;
 ARMultiEachMarkerInfoT marcadoresVisiveis[10];
 
 static void   init(void);
@@ -304,6 +305,8 @@ static void draw( double trans1[3][4], double trans2[3][4], int mode )
     }
     glMatrixMode(GL_MODELVIEW);
     glTranslatef( gx, gy, 25.0 );
+    glEnable(GL_COLOR_MATERIAL);
+    //glColor3f(0.0,0.0,1.0);
     if( !arDebug ) glutSolidCube(50.0);
      else          glutWireCube(50.0);
     glDisable( GL_LIGHTING );
@@ -318,44 +321,44 @@ void drawObjectsWithMarker(ARMultiEachMarkerInfoT marcador)
 
     //A
     if(marcador.patt_id == 0){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //B
     }else if(marcador.patt_id == 1){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //C
     }else if(marcador.patt_id == 2){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //D
     }else if(marcador.patt_id == 3){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //G
     }else if(marcador.patt_id == 4){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //F
     }else if(marcador.patt_id == 5){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //HIRO
     }else if(marcador.patt_id == 6){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //KANJi
     }else if(marcador.patt_id == 7){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }else if(marcador.patt_id == 8){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }else if(marcador.patt_id == 9){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }else if(marcador.patt_id == 10){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }
 }
@@ -367,12 +370,18 @@ void RepositionObject(){
     for (i = 0; i < config->marker_num; i++) {
         if( config->marker[i].visible >= 0 ){
             marcadoresVisiveis[i] = config->marker[i];
+            glColor3f(0.0,0.0,1.0);
             contaElementosValidos++;
         }
     }
+    //int j;
+    //for (j=0;j<contaElementosValidos;j++){
+    //    marcadorParaReposicionar = marcadoresVisiveis[j]
+    //}
 
-    printf("%d",contaElementosValidos);
-    //faz o que precisa com contaElementosValidos
+    //printf("%d",contaElementosValidos);
+
+
 }
 
 
