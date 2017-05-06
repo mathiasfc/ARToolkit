@@ -38,6 +38,7 @@ ARMultiMarkerInfoT  ref;
 
 
 ARMultiEachMarkerInfoT marcadorReferencia;
+ARMultiEachMarkerInfoT marcadorParaReposicionar;
 ARMultiEachMarkerInfoT marcadoresVisiveis[10];
 
 static void   init(void);
@@ -323,6 +324,8 @@ static void draw( double trans1[3][4], double trans2[3][4], int mode )
     }
     glMatrixMode(GL_MODELVIEW);
     glTranslatef( gx, gy, 25.0 );
+    glEnable(GL_COLOR_MATERIAL);
+    //glColor3f(0.0,0.0,1.0);
     if( !arDebug ) glutSolidCube(50.0);
      else          glutWireCube(50.0);
 
@@ -389,12 +392,18 @@ void RepositionObject(){
     for (i = 0; i < config->marker_num; i++) {
         if( config->marker[i].visible >= 0 ){
             marcadoresVisiveis[i] = config->marker[i];
+            glColor3f(0.0,0.0,1.0);
             contaElementosValidos++;
         }
     }
+    //int j;
+    //for (j=0;j<contaElementosValidos;j++){
+    //    marcadorParaReposicionar = marcadoresVisiveis[j]
+    //}
 
-    printf("%d",contaElementosValidos);
-    //faz o que precisa com contaElementosValidos
+    //printf("%d",contaElementosValidos);
+
+
 }
 
 
