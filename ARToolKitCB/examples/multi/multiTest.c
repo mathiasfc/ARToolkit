@@ -107,6 +107,25 @@ static void keyEvent( unsigned char key, int x, int y)
 
     if( key == 'n' ) {
         //NEW OBJECT
+        int op;
+        printf("\nAdicionar no solo(1) ou na parede(2)?");
+        scanf ("%d",&op);
+        if(op == 1){
+            //add object solo
+            printf("add obj solo");
+        }else if(op == 2){
+            printf("Parede esquerda(1) ou direita(2) ?");
+            scanf ("%d",&op);
+            if( op == 1){
+                printf("add obj wall 1");
+            }else if(op == 2){
+                printf("add obj wall 2");
+            }else{
+                printf("\nInforme um valor váido.");
+            }
+        }else{
+        printf("\nInforme um valor válido.");
+        }
     }
 
     if( key == 'p' ) {
@@ -306,6 +325,9 @@ static void draw( double trans1[3][4], double trans2[3][4], int mode )
     glTranslatef( gx, gy, 25.0 );
     if( !arDebug ) glutSolidCube(50.0);
      else          glutWireCube(50.0);
+
+    glTranslatef( 1.0, 1.0, 25.0 );
+     glutSolidCone(20,20,20,20);
     glDisable( GL_LIGHTING );
 
     glDisable( GL_DEPTH_TEST );
@@ -318,44 +340,44 @@ void drawObjectsWithMarker(ARMultiEachMarkerInfoT marcador)
 
     //A
     if(marcador.patt_id == 0){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //B
     }else if(marcador.patt_id == 1){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //C
     }else if(marcador.patt_id == 2){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //D
     }else if(marcador.patt_id == 3){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //G
     }else if(marcador.patt_id == 4){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //F
     }else if(marcador.patt_id == 5){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //HIRO
     }else if(marcador.patt_id == 6){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     //KANJi
     }else if(marcador.patt_id == 7){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }else if(marcador.patt_id == 8){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }else if(marcador.patt_id == 9){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }else if(marcador.patt_id == 10){
-        printf("%d", marcador.patt_id);
+        //printf("%d", marcador.patt_id);
         draw( config->trans, marcador.trans, 0 );
     }
 }
